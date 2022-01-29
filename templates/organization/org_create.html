@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Organization
+{% endblock %}
+
+{% block header %}
+Sign Up Your Organization
+{% endblock %}
+
+{% block content %}
+{% if valid1 %}
+  <div class="container">
+    {% if message %}
+      <div class="alert alert-danger col-md-8 mx-auto text-left mb-5" role="alert">
+      {{message}}
+      </div>
+    {% endif %}
+    <form method="POST" class="col-md-8 mx-auto text-left mb-5" align="center">
+          {% csrf_token %}
+      <div class="form-group">
+          <label for="formGroupExampleInput">Name of the Organization</label>
+          <input type="text" class="form-control border border-info" id="formGroupExampleInput" placeholder="Name" name="username">
+      </div>
+      <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control border border-info" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" name="email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control border border-info" id="exampleInputPassword1" name="password">
+      </div>
+      <div class="form-group">
+          <label for="exampleInputPassword1">Retype Password</label>
+          <input type="password" class="form-control border border-info" id="exampleInputPassword1" name="pass2">
+      </div>
+      <div class="form-group">
+          <label for="exampleFormControlTextarea1">Describe Yourself?</label>
+          <textarea class="form-control border border-info" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+    <div class="col-md-10 mx-auto mb-5" align="center">
+  <a href={% url 'org_create' %} class="btn btn-info">Already Signed Up? Login</a>
+  </div>
+    </div>
+  {% else %}
+  <div class="col-md-10 mx-auto text-center h5">
+  User already Logged In.
+  </div>
+{% endif %}
+{% endblock %}

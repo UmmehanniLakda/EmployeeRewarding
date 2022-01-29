@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+Project Create
+
+{% endblock %}
+
+
+{% block header %}
+
+Please fill the form to create a project
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <form class="mb-5" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Parent Project</label>
+          <select class="form-control" id="exampleFormControlSelect1" name="parent_project">
+            {% for project in parent_projects %}
+            <option value="{{project.name}}">{{project.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Choose Team</label>
+          <select class="form-control" id="exampleFormControlSelect1" name="team">
+            {% for team in teams %}
+            <option value="{{team.name}}">{{team.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="projectname">Please enter the project name</label>
+          <input type="text" class="form-control" id="project_name" name="project_name">
+        </div>
+        <div class="form-group">
+          <label for="Description">Please enter the project Description</label>
+          <input type="text" class="form-control" name="project_description" id="project_description">
+        </div>
+        <div class="form-group">
+          <label for="projectfile">Please enter the project file if any</label>
+          <input type="file" class="form-control" name="project_file" id="project_file">
+        </div>
+        <div class="form-group">
+            <label for="deadline">Please enter the project Deadline</label>
+            <input type="datetime-local" class="form-control" name="deadline" id="deadline">
+        </div>
+        <p>Please Enter Points:</p>
+        <div class="row col-md-10 mx-auto">
+        <div class="form-group col-md-4 text-center">
+            <label for="defaultpoints">Default</label>
+            <input type="number" class="form-control border-info" name="default_points" id="default_points">
+        </div>
+        <div class="form-group col-md-4 text-center">
+            <label for="defaultpoints">Contributional</label>
+            <input type="number" class="form-control border-info" name="c_points" id="c_points">
+        </div>
+        <div class="form-group col-md-4 text-center">
+            <label for="defaultpoints">Behavioural</label>
+            <input type="number" class="form-control border-info" name="b_points" id="b_points">
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</div>
+
+{% endblock %}

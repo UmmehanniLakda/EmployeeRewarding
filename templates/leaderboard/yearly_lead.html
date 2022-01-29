@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Leaderboard
+{% endblock %}
+
+{% block header %}
+Leaderboard 
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+Yearly Leaderboard for {{current | date}}
+{% else %}
+Please Login To Continue 
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if valid %}
+<div class="container">
+{% for emp, points in points_manager %}
+<div class="card mb-5 text-center border border-dark">
+    <div class="card-header bg bg-dark" align="center"> 
+    <span class="badge badge-info">{{emp.designation}}</span>
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <h5>Points this Year: {{points}}</h5>
+            <h4>{{emp.name}}</h4>
+            <h6>{{emp.user.email}}</h6>
+        </blockquote>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endif %}
+{% endblock %}

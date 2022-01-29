@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Submission
+{% endblock %}
+
+{% block header %}
+Task: {{task.name}}
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+Submission: {{submission.text}}
+{% endif %}
+{% if not valid %}
+Please Login To Continue
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="card text-center mb-5 border-dark">
+  <div class="card-header bg-dark">
+    <span class="badge badge-info p-2 mr-3" align="center" >Submited On: {{submission.timestamp | date}}</span>
+    <span class="badge badge-danger p-2" align="center" >Deadline On: {{task.deadline | date}}</span>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Submission By: {{submission.employee}}</h5>
+    <p class="card-text">{{submission.description}}</p>
+    <div class="flex">
+      {% if files %}
+        {% for file in files %}
+        <a href="{{file.file_item.url}}" class="btn btn-outline-secondary mb-3 mt-2">Attachment</a>
+        {% endfor %}
+      {% else %}
+        <h5 style="color: red;">File not yet submitted.</h5>
+      {% endif %}
+    </div>
+    <div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="accepted">
+        <label class="form-check-label" for="defaultCheck1">
+            Accept / Reject Submission
+        </label>
+        <br>
+        <button type="submit" class="btn btn-dark mt-3">Submit</button>
+    </form>
+    </div>
+    </div>
+  </div>
+  <div class="card-footer bg-dark text-white">
+    <span class="badge badge-danger p-2 mr-3" align="center" >Points Bid: {{submission.assignment.bid_points}}</span>
+    <span class="badge badge-info p-2 mr-3" align="center" >Status: {{submission.accepted}}</span>
+  </div>
+</div>
+</div>
+{% endblock %}

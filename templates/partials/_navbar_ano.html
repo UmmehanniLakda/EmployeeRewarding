@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">ODONATA</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto" align="center">
+     <li class="nav-item col-md-12 offset-md-8">
+        <a class="btn btn-success" href={% url 'org_login' %}>Organization</span></a>
+      </li>
+      <li class="nav-item col-md-12 offset-md-6">
+        <a class="btn btn-info" href={% url 'emp_login' %}>Employee</a>
+      </li>
+    </ul>
+    {% if user.is_active %}
+      <a href={% url 'logout' %} class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</a>
+    {% else %}
+      <a href={% url 'emp_login' %} class="btn btn-outline-success my-2 my-sm-0  mr-md-0" type="submit">Login</a>
+    {% endif %}
+  </div>
+</nav>

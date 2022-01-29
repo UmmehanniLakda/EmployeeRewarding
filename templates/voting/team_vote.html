@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Teams
+{% endblock %}
+
+{% block header %}
+You Teams Which Have Completed Thier Projects
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+Select Candidates for the Appropriate Ranks
+{% endif %}
+{% if not valid %}
+Please Login To Continue
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<form method="POST" class="col-md-12" align="center">
+{% csrf_token %}
+{% for i in max_rank %}
+<div class="form-group" align="center">
+<div class="col-md-10 mx-auto my-3">
+    <label for="inlineFormCustomSelect" class="mr-5">Rank: {{i}}</label>
+    <select class="custom-select col-md-10 mx-auto border border-info" id="inlineFormCustomSelect" name="rank{{i}}">
+    {% for employee in employees %}
+    <option value="{{employee.user.username}}">{{employee.name}}</option>
+    {% endfor %}
+    </select>
+</div>
+</div>
+{% endfor %}
+<button type="submit" class="btn btn-info col-md-5 mx-auto mb-5 mt-5" align="center">Vote</button>
+</form>
+</div>
+{% endblock %}

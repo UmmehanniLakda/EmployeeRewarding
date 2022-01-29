@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Organization
+{% endblock %}
+
+{% block header %}
+Create a Team to Lead a Parent Project
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+Choose Members for the team
+{% else %}
+Please Confirm Your Account to Procceed. 
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if valid %}
+        <form method="POST" class="col-md-8 mx-auto">
+            {% csrf_token %}
+            <input class="form-control" type="text" placeholder="Team Name" name="title">
+            <div  id="designation-form">
+                <label for="1">Member 1</label>
+                <div class="col-auto my-1">
+                    <label class="form-control mr-sm-2 sr-only" id="1" for="inlineFormCustomSelect">Member</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="member-1">
+                        {% for emp in employees %}
+                            <option value="{{emp.name}}">{{emp.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button type="button" id="add-designation" class="btn btn-info btn-sm mt-3 mb-3">Add Member</button>
+            <br>
+            <button type="submit" class="btn btn-primary mb-5 mt-3">Submit</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+let i = 1
+document.getElementById('add-designation').addEventListener('click', (event) => {
+    i += 1
+    if (i < 11) {
+        document.getElementById('designation-form').innerHTML += ` 
+            <label for="${i}" class="mt-4">Member ${i}</label>
+            <div class="col-auto my-1">
+                <label class="form-control mr-sm-2 sr-only" id=${i} for="inlineFormCustomSelect">Member</label>
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="member-${i}">
+                   {% for emp in employees %}
+                    <option value="{{emp.name}}">{{emp.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            </div>
+        `
+        event.preventDefault
+    } else {
+        document.getElementById('designation-form').innerHTML = `
+        <div class="alert alert-danger" role="alert">
+            Limit Reached
+        </div> 
+        `+ document.getElementById('designation-form').innerHTML
+    }
+})
+</script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+
+Project Display
+
+{% endblock %}
+
+{% block header %}
+
+Please select the project you want to see
+
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    {% if complete_project %}
+    <h2 class="card-title" align="center">Complete projects created</h2>
+    <div class="row row-cols-1 row-cols-md-3">
+        {% for project in complete_project %}
+            <div class="card col-md-3 offset-md-1 my-4">
+                <div class="card body rounded border-success">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{project.name}}</h5>
+                        <label class = "card-text">The name of the team is :-{{project.team.name}}</label>
+                        <p class="card-text">Project Description:-{{project.description}}</p>
+                        <p class="card-text">Project Created on:-{{project.timestamp}}</p>
+                        <a href={% url "list_project" project.id %} class="btn btn-primary">Go to project</a>
+                    </div>
+                </div>
+                </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if incomplete_project %}
+    <h2 class="card-title" align="center">Incomplete projects created</h2>
+    <div class="row row-cols-1 row-cols-md-3">
+        {% for project in incomplete_project %}
+            <div class="card col-md-3 offset-md-1 my-4">
+                <div class="card body rounded border-danger">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{project.name}}</h5>
+                        <label class = "card-text">The name of the team is :-{{project.team.name}}</label>
+                        <p class="card-text">Project Description:-{{project.description}}</p>
+                        <p class="card-text">Project Created on:-{{project.timestamp}}</p>
+                        <a href={% url "list_project" project.id %} class="btn btn-primary">Go to project</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}    
+</div>
+{% endblock %}

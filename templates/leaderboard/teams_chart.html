@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Analysis
+{% endblock %}
+
+{% block upscript %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block header %}
+Analysis
+{% endblock %}
+
+{% block subheader %}
+Leading Teams
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-12 mx-auto mt-5 mb-5" align="center"> 
+        <canvas id="myChart" width="800" height="800"></canvas> 
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+
+var state = {
+    'items': [],
+    'values': [],
+}
+
+let dataUrl = `/leaderboard/data/teams`
+$.ajax({
+    method: 'GET',
+    url: dataUrl,
+    success: function (response) {
+        console.log('Response:', response)
+        for (var i in response) {
+            
+            var key = Object.keys(response[i])[0]
+            var values = Object.values(response[i])[0]
+            state.items.push(key)
+            state.values.push(values)
+        }
+
+        console.log(state)
+        buildChart()
+    }
+})
+
+function buildChart () {
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: state.items,
+        datasets: [{
+        label: 'Number of Points',
+        data: state.values,
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: false,
+        scales: {
+        xAxes: [{
+            ticks: {
+            maxRotation: 90,
+            minRotation: 0
+            },
+            gridLines: {
+            offsetGridLines: false 
+            }
+        },
+        {
+            position: "top",
+            ticks: {
+            maxRotation: 90,
+            minRotation: 0
+            },
+            gridLines: {
+            offsetGridLines: true 
+            }
+        }],
+        yAxes: [{
+            ticks: {
+            beginAtZero: true
+            }
+        }]
+        }
+    }
+    });
+}
+
+
+</script>
+{% endblock %}

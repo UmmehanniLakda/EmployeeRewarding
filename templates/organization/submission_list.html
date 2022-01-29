@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Organization
+{% endblock %}
+
+{% block header %}
+Your Submissions For Project
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+{{project.name}}
+<br>
+<span class="badge badge-info p-2 mb-3 mt-2" align="center" >Created By: {{project.parentproject.organization.name}}</span>
+{% else %}
+{% if created %}
+This project has not been assigned to you.
+{% else %}
+Please Login To Continue
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if valid %}
+<div class="container">
+{% for submission in submissions %}
+  <div class="col mb-4">
+    <div class="card h-100 border rounded border-info p-3">
+      <div class="card-body p-3 text-center">
+        <span class="badge badge-info p-2 mb-3" align="center" >Submitted On: {{submission.timestamp | date}}</span>
+        <span class="badge badge-dark p-2 mb-3" align="center" >Submitted By: {{submission.child.emp}}</span>
+        <h4 class="card-title">{{submission.project.name | title}}</h4>
+        <h6 class="card-text mb-4">Accepted: {% if submission.status %} Yes {% else %} No {% endif %}</h6>
+        <a href={% url 'org_project_accept' submission.id %} class="btn btn-primary">Check Out Submission</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endif %}
+{% endblock %}

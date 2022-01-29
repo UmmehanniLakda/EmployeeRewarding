@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+
+Project Display
+
+{% endblock %}
+
+{% block header %}
+
+The projects that are assigned to you
+
+{% endblock %}
+
+
+{% block content %}  
+<div class="container"> 
+    {% if completed %}
+        <h2 class="card-title" align="center">Complete submissions</h2>
+        <div class="row row-cols-1 row-cols-md-3">
+            {% for submission in completed %}
+                        <div class="card col-md-3 offset-md-1 my-4">
+                            <div class="card body rounded border-success">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{{submission.1.name}}</h5>
+                                    <label class = "card-text">The name of the team is :-{{submission.1.team.name}}</label>
+                                    <p class="card-text">Project Description:-{{submission.1.description}}</p>
+                                    <p class="card-text">Project Submitted on:-{{submission.0.timestamp}}</p>
+                                    <a href={% url "submit_project" submission.1.id submission.1.team.id %} class="btn btn-primary">Go to submission</a>
+                                </div>
+                            </div>
+                        </div>
+            {% endfor %}  
+            </div>  
+    {% endif %}
+    {% if incompleted %}
+    <h2 class="card-title" align="center">Inomplete submissions</h2>
+        <div class="row row-cols-1 row-cols-md-3">
+            {% for submission in incompleted %}
+                        <div class="card col-md-3 offset-md-1 my-4">
+                            <div class="card body rounded border-danger">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{{submission.1.name}}</h5>
+                                    <label class = "card-text">The name of the team is :-{{submission.1.team.name}}</label>
+                                    <p class="card-text">Project Description:-{{submission.1.description}}</p>
+                                    <p class="card-text">Project Submitted on:-{{submission.0.timestamp}}</p>
+                                    <a href={% url "submit_project" submission.1.id submission.1.team.id %} class="btn btn-primary">Go to submission</a>
+                                </div>
+                            </div>
+                        </div>
+            {% endfor %}  
+            </div>  
+    {% endif %}
+</div>     
+{% endblock %}

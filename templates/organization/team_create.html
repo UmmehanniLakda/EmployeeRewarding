@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Organization
+{% endblock %}
+
+{% block header %}
+Create Team
+{% endblock %}
+
+{% block content %}
+
+  
+<div class="container">
+    <form method="POST" class="col-md-8 mx-auto text-left mb-5" align="center">
+        {% csrf_token %}
+      <div class="form-group">
+          <label for="formGroupExampleInput" >Team Name</label>
+          <input type="text" class="form-control border border-info" id="formGroupExampleInput" placeholder="Name" name="team_name">
+      </div>
+      <p style="color: red;">Note:-Team should contain atleast 3 members</p>
+      <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Team Member 1</label>
+      <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name = "name1">
+        <option selected>Choose</option>
+        {% for child in children %}
+          <option value="1">{{child.emp.name}}</option>
+        {% endfor %}
+      </select>
+      <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Team Member 2</label>
+      <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name = "name2">
+        <option selected>Choose</option>
+        {% for child in children %}
+          <option value="1">{{child.emp.name}}</option>
+        {% endfor %}
+      </select>
+      <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Team Member 3</label>
+      <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name = "name3">
+        <option selected>Choose</option>
+        {% for child in children %}   
+          <option value="1">{{child.emp.name}}</option>
+        {% endfor %}
+      </select>
+      <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Team Member 4</label>
+      <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name = "name4">
+        <option selected>Choose</option>
+        {% for child in children %}
+          <option value="1">{{child.emp.name}}</option>
+        {% endfor %}
+      </select>
+        <button type="submit" class="btn btn-primary">Create Team</button>
+    </form>
+  </div>
+<<<<<<< HEAD
+=======
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Team Member 1</label>
+  <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name = "name1">
+    <option selected>Choose</option>
+    {% for child in children %}
+   
+    <option value="{{child.emp.name}}">{{child.emp.name}}</option>
+    {% endfor %}
+  </select>
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Team Member 2</label>
+  <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name = "name2">
+    <option selected>Choose</option>
+    {% for child in children %}
+    
+    <option value="1">{{child.emp.name}}</option>
+    {% endfor %}
+  </select>
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Team Member 3</label>
+  <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name = "name3">
+    <option selected>Choose</option>
+    {% for child in children %}
+   
+    <option value="1">{{child.emp.name}}</option>
+    {% endfor %}
+  </select>
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Team Member 4</label>
+  <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name = "name4">
+    <option selected>Choose</option>
+    {% for child in children %}
+    
+    <option value="1">{{child.emp.name}}</option>
+    {% endfor %}
+  </select>
+
+
+
+ 
+
+    <button type="submit" class="btn btn-primary">Create Team</button>
+
+  </form>
+
+</div>
+>>>>>>> bf921f856da7e8c68c6a1bad36f8aeb663859950
+</div>
+{% endblock %}

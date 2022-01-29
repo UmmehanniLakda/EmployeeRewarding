@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">ODONATA</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href={% url 'home' %}>Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Leaderboard
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href={% url 'weekly_lead' %}>Weekly</a>
+          <a class="dropdown-item" href={% url 'quaterly_lead' %}>Quaterly</a>
+          <a class="dropdown-item" href={% url 'yearly_lead' %}>Yearly</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Projects
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href={% url 'parent_project_list' %}>Parent Projects</a>
+          <a class="dropdown-item" href={% url 'org_create_project' %}>Create Project</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href={% url 'org_team_create' %}>Create Team</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Analysis
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href={% url 'points_chart' %}>Employee Points</a>
+          <a class="dropdown-item" href={% url 'teams_chart' %}>Team Points</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        {% if not user.organization.desigset %}
+          <a class="nav-link" href={% url 'org_architecture' %}>Set Up Your Organization</a>
+        {% endif %}
+      </li>
+    </ul>
+    {% if user.is_active %}
+    <a href={% url 'logout' %} class="btn btn-outline-danger my-2 my-sm-0">Logout</a>
+    {% else %}
+    <a href={% url 'emp_login' %} class="btn btn-outline-success my-2 my-sm-0">Login</a>
+    {% endif %}
+  </div>
+</nav>

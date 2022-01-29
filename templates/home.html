@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} 
+Home
+{% endblock %}
+
+
+{% block image %}
+<img src="{% static "images/home4.png" %}" class="mt-3 pt-0" alt="" style="height: 0%;width: 100%;">
+{% endblock %}
+
+{% block content %}
+<div class="container col md-5">
+    <div class="block mt-5 mx-5" >
+        <div class="row">
+          <div style="margin-right:10px;">
+            <img src="{% static "images/logo.png" %}" class="border rounded col-md-4 p-2" style="float: left;margin-right: 5%;">
+            <h5 class="align-middle mt-5 col-md-6 pt-5 text-wrap ml-2" style="float: right;">The Odonata are an order of flying insects that includes the dragonflies and damselflies.
+A dragonfly can see from six directions. Are leaders any different?
+Having a transparent bottle lets you see what is inside. We give you a way to see everything within your organization and make management of projects / employees easier than ever before.
+</h5>
+          </div>
+       </div>
+    </div>    
+
+    <div class="block mt-5 mx-5" >
+        <div class="row">
+            <div style="margin-left:10px;">
+                <img src="{% static "images/sticker2.png" %}" class="border rounded col-md-4 p-2" style="float: right;margin-right: 5%;">
+                <h5 class="align-middle mt-5 col-md-6 pt-5 text-wrap mr-2" style="float: left;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti possimus temporibus atque nihil eum odio. Quam explicabo aperiam ab tempora deleniti veniam ipsum natus quibusdam saepe temporibus officia, ullam, nulla tempore placeat! Unde asperiores modi nihil aperiam. Voluptates quos assumenda esse nesciunt amet, exercitationem quia doloremque repudiandae, delectus cumque veniam.</h5>
+            </div>
+        </div>
+    </div>    
+    <div class="col-md-10 mx-auto mt-5 mb-5" style="background-color: thistle;">
+        <h5 class="text-center" style="size: 20px;color:rgb(27, 21, 29);font-family: 'Courier New', Courier, monospace;display: block;">~WE MAKE THE TEAMWORK MATTER</h5>
+    </div>    
+</div>
+
+{% endblock %}

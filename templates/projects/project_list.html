@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+
+Project Details
+
+{% endblock %}
+
+{% block header %}
+
+Please select the employee you want to see who has submitted 
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="card text-center" style="width: 20rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{project.name}}</h5>
+                <label class = "card-text">The name of the team is :-{{project.team.name}}</label>
+                <p class="card-text">Project Description:-{{project.description}}</p>
+                {% if project.status %}    
+                    <label class="card-text" style="color: green;">Status:-Done</label>
+                {% else %}
+                    <label class="card-text" style="color: red;">Status:-Not Done</label>
+                {% endif %}
+                {% for child in teams.child.all %}
+                    <a href={% url "accept_project" project.id child.id %} class="btn btn-primary">Go to {{child.emp.name}}'s submission</a>
+                {% endfor %}
+                {% if project_status %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div>
+                            <label for="status" class="card-text display inline">Accepted Status</label>
+                            <input type="checkbox" name="status" id="status">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

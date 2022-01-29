@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Employee
+{% endblock %}
+
+{% block header %}
+Help Us Setup Your Profile.
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+Select All The Employees That Work Directly Under You.
+{% else %}
+Please Login to Continue.
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if valid %}
+<div class="container">
+<div class="col-md-8 mx-auto" align="center">
+<form method = "POST">
+    {% csrf_token %}
+    <input class="form-control" type="text" placeholder="Search By Name / Email" name="filter">
+    <button type="submit" class="btn btn-primary mb-2 mt-3 mb-5">Search</button>
+</div>
+</form>
+<div class="row row-cols-1 row-cols-md-3">
+{% for emp in employees %}
+  <div class="col mb-4">
+    <div class="card h-100">
+      <span class="badge badge-info p-2" align="center">{{emp.designation}}</span>
+      <div class="card-body">
+        <h5 class="card-title">{{emp.name}}</h5>
+        <p class="card-text">Email: {{emp.user.email}}</p>
+        <a href={% url 'emp_setchild' emp.user.id %} class="btn btn-primary">Add Employee</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+</div>
+{% endif %}
+{% endblock %}
+

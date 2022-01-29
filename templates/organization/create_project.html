@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Organization
+{% endblock %}
+
+{% block header %}
+Create a Project 
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+This will be a Parent Project for all other projects.
+{% else %}
+{% if invalid %}
+Please Login to Continue.
+{% else %}
+{% if valid %}
+Please Confirm Your Account to Procceed. 
+{% endif %}
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+{% if valid %}
+    <form method="POST" class="mb-5">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="projectname">Please enter the project name</label>
+          <input type="text" class="form-control border border-info" id="project_name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Choose a Team for the project</label>
+          <select class="form-control border-info" id="exampleFormControlSelect1" name='team'>
+            {% for team in teams %}
+            <option value="{{team.name}}">{{team.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="Description">Please enter the project Description</label>
+          <input type="text" class="form-control border border-info" name="description" id="description">
+        </div>
+        <div class="form-group">
+          <label for="projectfile">Add Project Files (Optional)</label>
+          <input type="file" class="form-control p-1 col-md-3 border-dark bg-info" name="file" id="file" style="color:white;">
+        </div>
+        <div class="form-group">
+            <label for="deadline">Please enter the project Deadline</label>
+            <input type="datetime-local" class="form-control border-info col-md-3" name="deadline" id="deadline">
+          </div>
+        <p>Please Enter Points:</p>
+        <div class="row col-md-10 mx-auto">
+        <div class="form-group col-md-4 text-center">
+            <label for="defaultpoints">Default</label>
+            <input type="number" class="form-control border-info" name="points" id="points">
+        </div>
+        <div class="form-group col-md-4 text-center">
+            <label for="defaultpoints">Contributional</label>
+            <input type="number" class="form-control border-info" name="c_points" id="c_points">
+        </div>
+        <div class="form-group col-md-4 text-center">
+            <label for="defaultpoints">Behavioural</label>
+            <input type="number" class="form-control border-info" name="b_points" id="b_points">
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    {% endif %}
+</div>
+{% endblock %}
+

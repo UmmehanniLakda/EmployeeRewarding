@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Organization
+{% endblock %}
+
+{% block header %}
+Develop the Architecture of your Organization
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+Setup Your Organization is the Decreasing Order of Importance
+{% else %}
+{% if invalid %}
+Please Login to Continue.
+{% else %}
+{% if valid %}
+Please Confirm Your Account to Procceed. 
+{% endif %}
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+{% if valid %}
+<form method="POST" class="col-md-8 mx-auto">
+{% csrf_token %}
+<div  id="designation-form">
+<label for="1">Level 1</label>
+<input class="form-control" type="text" placeholder="Designation" id="1" name="text-1">
+</div>
+<button type="button" id="add-designation" class="btn btn-info btn-sm mt-3 mb-3">Add Designation</button>
+<br>
+<button type="submit" class="btn btn-primary mb-5 mt-3">Submit</button>
+</form>
+</div>
+{% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+let i = 1
+document.getElementById('add-designation').addEventListener('click', (event) => {
+    i += 1
+    if (i < 11) {
+        document.getElementById('designation-form').innerHTML += ` 
+            <label for="${i}" class="mt-4">Level ${i}</label>
+            <input type="text" class="form-control" placeholder="Designation" id="${i}" name="text-${i}">
+        `
+        event.preventDefault
+    } else {
+        document.getElementById('designation-form').innerHTML = `
+        <div class="alert alert-danger" role="alert">
+            Limit Reached
+        </div> 
+        `+ document.getElementById('designation-form').innerHTML
+    }
+})
+</script>
+{% endblock %}

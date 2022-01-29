@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Employee
+{% endblock %}
+
+{% block header %}
+Help Us Set Up Your Account
+{% endblock %}
+
+{% block content %}
+{% if message %}
+<div class="alert alert-danger col-md-8 mx-auto text-left mb-5" role="alert">
+    {{message}}
+</div>
+{% endif %}
+<div class="container"> 
+<form method="POST" class="col-md-8 mx-auto text-left mb-5" align="center">
+  {% csrf_token %}
+    <div class="form-group">
+      <label for="inlineFormCustomSelect">Select Designation</label>
+      <select class="custom-select mr-sm-2 border border-info" id="inlineFormCustomSelect" name="designation">
+        {% for des in designations %}
+        <option value="{{des.designation}}">{{des.designation}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary my-1">Add Designation</button>
+</form>
+</div>
+{% endblock %}

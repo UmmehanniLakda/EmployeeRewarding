@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Auction
+{% endblock %}
+
+{% block header %}
+Submit Your Work For Task
+{% endblock %}
+
+{% block subheader %}
+{% if not valid %}
+Please Login To Continue
+{% endif %}
+{% if valid %}
+Task: {{task.name}}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="col-md-10 mx-auto mt-5 mb-5 p-2">
+<form method="POST" enctype='multipart/form-data'>
+{% csrf_token %}
+<label for="text">Title</label>
+<input class="form-control" type="text" id="text" placeholder="Title" name="title">
+<div class="form-group">
+    <label for="exampleFormControlTextarea1">Description</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+</div>
+<div class="form-group">
+    <label for="exampleFormControlFile1">Submission File</label> 
+    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file1">
+</div>
+<div class="form-group">
+    <label for="exampleFormControlFile1">Submission File</label> 
+    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file2">
+</div>
+<div class="form-group">
+    <label for="exampleFormControlFile1">Submission File</label> 
+    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file3">
+</div>
+<button type="submit" class="btn btn-info">Submit</button>
+</form>
+</div>
+{% endblock %}

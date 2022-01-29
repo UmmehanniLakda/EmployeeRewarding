@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Conversations
+{% endblock %}
+
+{% block upscript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block header %}
+Conversations
+{% endblock %}
+
+{% block subheader %}
+In Conversation with {{receiver}}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div id="messages" class="mb-5">
+<div id="val" class="d-none">{{pk}}</div>
+<div id="user1" class="d-none">{{user.username}}</div>
+<div id="user2" class="d-none">{{receiver.username}}</div>
+</div>
+<div class="col-md-8 mx-auto mb-5">
+<form method="post">
+{% csrf_token %}
+<div class="form-group">
+    <textarea class="form-control" id="message" rows="3" placeholder="Message" name="content"></textarea>
+</div>
+<button type="submit" id="submit" class="btn btn-info">Send Message</button>
+</form>
+</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+let val = document.getElementById('val').innerHTML
+let user1 = document.getElementById('user1').innerHTML
+let user2 = document.getElementById('user2').innerHTML
+let url = '/chat/' + val 
+let state = []
+$(document).ready(function() { 
+fetch(url)
+.then(response => response.json())
+.then((data) => {
+    if (Object.values(data).length != state.length) {
+        state = []
+        data.forEach(item => {
+            if(Object.keys(item)[0] == 'user1') {
+                state.push({'user1': item['user1']})
+            } else {
+                state.push({'user2': item['user2']})
+            }
+        })
+        renderMessages();
+    }
+});
+setInterval( function () {
+fetch(url)
+.then(response => response.json())
+.then((data) => {
+    if (Object.values(data).length != state.length) {
+        state = []
+        data.forEach(item => {
+            if(Object.keys(item)[0] == 'user1') {
+                state.push({'user1': item['user1']})
+            } else {
+                state.push({'user2': item['user2']})
+            }
+        })
+        renderMessages();
+    }
+});
+}, 2000)
+});
+
+function renderMessages() {
+    let messages = document.getElementById('messages')
+    state.forEach(item => {
+        if(Object.keys(item)[0] == 'user1') {
+            messages.innerHTML += `
+            <div class="card border rounded border-info col-md-4 offset-md-8 p-1 mt-2">
+            <span class="badge badge-info col-md-12 mx-auto p-1 " align="center">${user1}</span>
+            <div class="card-body">
+                ${item['user1']}
+            </div>
+            </div>
+            `
+        } else {
+            messages.innerHTML += `
+            <div class="card col-md-4 border rounded border-dark mt-2 p-1">
+            <span class="badge badge-dark col-md-12 mx-auto p-1" align="center">${user2}</span>
+            <div class="card-body">
+                ${item['user2']}
+            </div>
+            </div>
+            `
+        }
+    })
+    window.scrollTo(0,document.body.scrollHeight);
+}
+
+</script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Auction
+{% endblock %}
+
+{% block header %}
+These are the ongoing bids for {{task.name}}
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+Max Points: {{task.max_reward}}
+{% else %}
+Please Login To Continue 
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<form method="POST">
+    {% csrf_token %}
+    <label for="bid">Enter Your Bid</label>
+    <input class="form-control" type="number" id="bid" placeholder="Bid for Task" name="bid">
+    <button type="submit" class="btn btn-primary mb-2 mt-3 mb-5">Bid Amount</button>
+</form>
+{% for bi in bids %}
+<div class="card text-center mb-5">
+  <h5 class="card-header">{{bi.employee.name}}</h5>
+  <div class="card-body">
+    <h5 class="card-title">Points Bidded: {{bi.bid}}</h5>
+    {% if creator %}
+    <a href={% url 'assign_task' bi.task.id bi.employee.id %} class="btn btn-primary mt-2">Assign Task</a>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

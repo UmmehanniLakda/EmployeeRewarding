@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Conversations
+{% endblock %}
+
+{% block upscript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block header %}
+Conversations
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+Click to have a conversation
+{% else %}
+Please login to continue
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mb-5">
+{% for contact in contacts %}
+<a href={% url 'message_list' contact.user.id %} class="text-decoration-none">
+<div class="card col-md-5 my-4 mx-auto text-center border rounded-pill border-info mb-3">
+  <div class="card-body pt-4">
+    <h5 class="text-decoration-none">{{contact.name | title}}</h5>
+  </div>
+</div>
+</a>
+{% endfor %}
+</div>
+{% endblock %}

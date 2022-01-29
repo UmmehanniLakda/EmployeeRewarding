@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Auction
+{% endblock %}
+
+{% block header %}
+Your Submissions For Task
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+{{task.name}}
+{% else %}
+{% if assigned %}
+This task has not been assigned to you.
+{% else %}
+Please Login To Continue
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+{% for submission in submissions %}
+  <div class="col mb-4">
+    <div class="card h-100 border rounded border-info p-3">
+      <div class="card-body p-3 text-center">
+        <span class="badge badge-info p-2 mb-3" align="center" >Submitted On: {{submission.timestamp | date}}</span>
+        <h4 class="card-title">{{submission.text | title}}</h4>
+        <h6 class="card-text mt-4 mb-4">{{submission.description}}</h6>
+        <h6 class="card-text mb-4">Accepted: {% if submission.accepted %} Yes {% else %} No {% endif %}</h6>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

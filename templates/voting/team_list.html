@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Teams
+{% endblock %}
+
+{% block header %}
+Your Teams Which Have Completed Thier Projects
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+Select Teams to Vote for them
+{% endif %}
+{% if not valid %}
+Please Login To Continue
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+{% for team in teams %}
+<div class="row row-cols-1 row-cols-md-3 text-center">
+  <div class="col mb-4">
+    <div class="card border border-info">
+      <div class="card-body">
+        <h5 class="card-title">{{team.name}}</h5>
+        <p class="card-text">{{team.project.name}}</p>
+        <a href='#' class="btn btn-dark">Vote Now</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

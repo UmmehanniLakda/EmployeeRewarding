@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+
+Project Accept
+
+{% endblock %}
+
+{% block header %}
+
+Please fill the form to accept the project
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+        <div>  
+          <label for="projectfile"> The project files of the submission</label>
+          {% if files %}
+                <div class="col-md-5 mx-auto mt-5" align="center">
+                    {% for file in files %}
+                        <a href="{{file.url}}" class="btn btn-dark">Upload File</a>
+                    {% endfor %}
+                </div>
+          {% else %}
+          <h3 style="color: red;">No files submitted yet</h3>
+        {% endif %}
+        </div>
+        <div>
+            <label> This submission is of {{child.emp.name}} </label>
+        </div>
+        <div>
+          {% if after_deadline %}
+            <h3 style="color: red;">This submission was not done within deadline</h3>
+          {% else %}
+            <h3 style="color: green;">This submission was done within deadline</h3>
+          {% endif %}
+      </div>
+        </div>
+        <div class="btn-group btn-group-toggle col-md-5" data-toggle="buttons" required>
+            <label class="btn btn-secondary active mx-auto">
+              <input type="radio" name="accepted_project" id="accepted_project"> Accept the project
+            </label>
+            <label class="btn btn-secondary mx-auto">
+              <input type="radio" name="rejected_project" id="rejected_project"> Reject the project
+            </label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</div>
+
+{% endblock %}

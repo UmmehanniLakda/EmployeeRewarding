@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Auction
+{% endblock %}
+
+{% block header %}
+Auctions You Created and Assigned
+{% endblock %}
+
+{% block subheader %}
+{% if not valid %}
+Please Login To Continue
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="col-md-10 mx-auto mb-5" align="center">
+<h4>Incomplete Tasks</h4>
+</div>
+{% for task in incomplete_tasks %}
+  <div class="col mb-4">
+    <div class="card h-100 border rounded border-info p-3">
+      <div class="card-body p-3 text-center">
+        <span class="badge badge-info p-2 mb-3" align="center" >{{task.0.timestamp | date}}</span>
+        <h4 class="card-title">{{task.0.name | title}}</h4>
+        <h6 class="card-text mt-4 mb-4">{{task.0.description}}</h6>
+        <h6 class="card-text mb-4">Max Points: {{task.0.max_reward}}</h6>
+        <p>Assigned To: </p>
+        <div class="flex">
+        {% for item in task.1 %}
+            <span class="badge badge-danger">{{item.assigned_to.name}}</span>
+        {% endfor %}
+        </div>
+        <br>
+        <a href={% url "task_submission_list" task.1.0.id %} class="btn btn-primary">Go to Submissions</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+<div class="col-md-10 mx-auto mb-5 mt-5" align="center">
+<h4>Complete Tasks</h4>
+</div>
+{% for task in completed_tasks %}
+  <div class="col mb-4">
+    <div class="card h-100 border rounded border-info p-3">
+      <div class="card-body p-3 text-center">
+        <span class="badge badge-info p-2 mb-3" align="center" >{{task.0.timestamp | date}}</span>
+        <h4 class="card-title">{{task.0.name | title}}</h4>
+        <h6 class="card-text mt-4 mb-4">{{task.0.description}}</h6>
+        <h6 class="card-text mb-4">Max Points: {{task.0.max_reward}}</h6>
+        <p>Assigned To: </p>
+        <div class="flex">
+        {% for item in task.1 %}
+            <span class="badge badge-warning">{{item.assigned_to.name}}</span>
+        {% endfor %}
+        </div>
+        <br>
+        <a href='#' class="btn btn-primary">Submissions</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

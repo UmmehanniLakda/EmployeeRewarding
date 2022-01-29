@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Auction
+{% endblock %}
+
+{% block header %}
+Create Your Task to Auction
+{% endblock %}
+
+{% block subheader %}
+{% if valid %}
+Auction your small tasks with a Cap Limit
+{% else %}
+Please Login To Continue
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if valid %}
+<div class="container">
+<form method="POST" class="mb-5" enctype='multipart/form-data'>
+{% csrf_token %}
+<div class="form-group">
+    <label for="formGroupExampleInput2">Name</label>
+    <input type="text" class="form-control border rounded border-info" id="formGroupExampleInput2" placeholder="Name" name="name">
+</div>
+<div class="form-group">
+    <label for="exampleFormControlTextarea1">Description</label>
+    <textarea class="form-control border rounded border-info" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+</div>
+<div class="form-group">
+    <label for="exampleFormControlFile1">Instructions File</label>
+    <input type="file" class="form-control-file bg bg-info border rounded col-md-4 p-2" id="exampleFormControlFile1" name="attachment">
+</div>
+<div class="form-group">
+    <label for="inputPassword2">Max Points</label>
+    <input type="number" class="form-control border rounded border-info" id="inputPassword2" placeholder="Max Points You are Willing To Offer" name="points">
+</div>
+<div class="mb-3 form-group">
+    <label for="inputPassword2">Deadline</label>
+    <input type="datetime-local" name = "deadline" class="col-md-12 p-1 border rounded border-info">
+</div>
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+{% endif %}
+{% endblock %}

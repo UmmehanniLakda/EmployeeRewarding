@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Analysis
+{% endblock %}
+
+{% block upscript %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block header %}
+Progress Analysis
+{% endblock %}
+
+{% block subheader %}
+Your Progress Graph
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="col-md-12 mx-auto mt-5 mb-5" align="center"> 
+<canvas id="myChart" width="400" height="400"></canvas> 
+</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+
+var state = {
+    'items': [],
+    'values': [],
+}
+
+let dataUrl = `/leaderboard/data/employee`
+$.ajax({
+    method: 'GET',
+    url: dataUrl,
+    success: function (response) {
+        console.log('Response:', response)
+        for (var i in response) {
+            
+            var key = Object.keys(response[i])[0]
+            var values = Object.values(response[i])[0]
+            state.items.push(key)
+            state.values.push(values)
+        }
+
+        console.log(state)
+        buildChart()
+    }
+})
+
+function buildChart () {
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: state.items,
+        datasets: [{
+            label: 'Points', // Name the series
+            data: state.values, // Specify the data values array
+            fill: false,
+            borderColor: '#2196f3', // Add custom color border (Line)
+            backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+            borderWidth: 1 // Specify bar border width
+        }]},
+        options: {
+        responsive: true, // Instruct chart js to respond nicely.
+        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+        }
+    });
+}
+
+
+</script>
+{% endblock %}
